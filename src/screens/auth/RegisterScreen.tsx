@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { UserContext } from '../../context/userContext/user.cotext';
+// import { UserContext } from '../../context/userContext/user.cotext';
 import { COLORS } from '../../constants/styles';
 import auth from '@react-native-firebase/auth';
 
 const RegisterScreen = () => {
   const navigation = useNavigation();
-  const { setCurrentUser } = useContext(UserContext);
+  // const { setCurrentUser } = useContext(UserContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -15,9 +15,8 @@ const RegisterScreen = () => {
   const handleAuth = async () => {
     setLoading(true);
     try {
-      const UserCredential = await auth().createUserWithEmailAndPassword(email, password);
-      setCurrentUser(UserCredential.user);
-      navigation.navigate('Login');
+      await auth().createUserWithEmailAndPassword(email, password);
+      // setCurrentUser(UserCredential.user);
     } catch (error: any) {
       Alert.alert('Error', error.message);
     } finally {

@@ -7,6 +7,7 @@ import DetailsScreen from '../../screens/details/DetailsScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
 import { COLORS } from '../../constants/styles';
 import Icon from '@react-native-vector-icons/ionicons';
+import SettingsScreen from '../../screens/settings/SettingsScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -33,6 +34,8 @@ const MainTabNavigation = () => {
             iconName = 'tv';
           } else if (route.name === 'Search') {
             iconName = 'search';
+          } else if (route.name === 'Settings') {
+            iconName = 'settings';
           }
           return <Icon name={iconName} size={size} color={color} />;
         },
@@ -44,6 +47,7 @@ const MainTabNavigation = () => {
       <Tab.Screen name="Movies" component={MoviesScreen} />
       <Tab.Screen name="TV Show" component={TVShowsScreen} />
       <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
 };

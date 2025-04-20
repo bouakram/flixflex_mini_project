@@ -15,7 +15,7 @@ const LoginScreen = () => {
     try {
       const UserCredential = await auth().signInWithEmailAndPassword( email, password);
       if (UserCredential.user) {
-        navigation.navigate('Register');
+        navigation.navigate('MainTabs');
       }
     } catch (error: any) {
       Alert.alert('Error', error.message);
