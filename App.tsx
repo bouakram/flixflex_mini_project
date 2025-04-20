@@ -4,9 +4,9 @@ import UserContextProvider from './src/context/userContext/user.cotext';
 
 function App(): React.JSX.Element {
   return (
-    // <UserContextProvider>
+    <UserContextProvider>
       <Navigation />
-    // </UserContextProvider>
+    </UserContextProvider>
     );
 }
 

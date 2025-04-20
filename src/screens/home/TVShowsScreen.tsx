@@ -15,8 +15,8 @@ import { getTopRatedTVShows, getPopularTVShows } from '../../services/apiService
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { COLORS } from '../../constants/styles';
 import useFetch from '../../hooks/useFetch';
-import TopRateedList from '../../components/lists/topRatedList';
-import List from '../../components/lists/list';
+import TopRateedList from '../../components/listItem/topRatedList';
+import List from '../../components/listItem/list';
 
 export default function TVShowsScreen() {
   const insets = useSafeAreaInsets(); // to handle the safe area view

@@ -15,8 +15,8 @@ import { getTopRatedMovies, getPopularMovies } from '../../services/apiService';
 import { COLORS } from '../../constants/styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import useFetch from '../../hooks/useFetch';
-import TopRateedList from '../../components/lists/topRatedList';
-import List from '../../components/lists/list';
+import TopRateedList from '../../components/listItem/topRatedList';
+import List from '../../components/listItem/list';
 
 export default function MoviesScreen() {
   const insets = useSafeAreaInsets(); // to handlethe top safe area

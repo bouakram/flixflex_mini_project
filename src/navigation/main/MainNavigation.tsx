@@ -5,7 +5,6 @@ import TVShowsScreen from '../../screens/home/TVShowsScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DetailsScreen from '../../screens/details/DetailsScreen';
 import SearchScreen from '../../screens/search/SearchScreen';
-import UnboardingScreen from '../../screens/unboarding/UnboardingScreen';
 import { COLORS } from '../../constants/styles';
 import Icon from '@react-native-vector-icons/ionicons';
 
@@ -53,7 +52,6 @@ const MainNavigation = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Unboarding" component={UnboardingScreen} />
       <Stack.Screen name="MainTabs" component={MainTabNavigation} />
       <Stack.Screen name="Details" component={DetailsScreen} options={{
         headerShown: true,

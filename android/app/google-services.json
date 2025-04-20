@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "525555706817",
+    "project_id": "flexflix-af61a",
+    "storage_bucket": "flexflix-af61a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525555706817:android:991484ef00bb2bfdb15d40",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA53T8X1HZHLOBqigR0p1E6LOtsjPne2Q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

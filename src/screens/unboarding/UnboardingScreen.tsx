@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 const UnboardingScreen = () => {
     const navigation = useNavigation();
 
-    const handleButtonPress = () => navigation.navigate('MainTabs');
+    const handleButtonPress = () => navigation.navigate('Login');
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={COLORS[0].background} barStyle={'light-content'}/>

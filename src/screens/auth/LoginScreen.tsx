@@ -1,36 +1,39 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import React, { useContext, useState } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { FIREBASE_AUTH } from '../../utils/firebase/firebase.utils';
 import { useNavigation } from '@react-navigation/native';
-import { UserContext } from '../../context/userContext/user.cotext';
+import React, { useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { COLORS } from '../../constants/styles';
+import auth from '@react-native-firebase/auth';
 
 const LoginScreen = () => {
-    const navigation = useNavigation();
-    const {setCurrentUser} = useContext(UserContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handleAuth = async () => {
-      try {
-        const UserCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
-        console.log(UserCredential.user);
-        setCurrentUser(UserCredential.user);
-        navigation.navigate('Movies');
-      } catch (error: any) {
-        Alert.alert('Error', error.message);
-      }
-    };
-
-    const navigateToSignUp = () => {
+  const handleAuth = async () => {
+    setLoading(true);
+    try {
+      const UserCredential = await auth().signInWithEmailAndPassword( email, password);
+      if (UserCredential.user) {
         navigation.navigate('Register');
-    };
-    return (
+      }
+    } catch (error: any) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const navigateToSignIn = () => {
+    navigation.navigate('Register');
+  };
+  return (
     <View style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor={COLORS[0].desabledText}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -39,60 +42,73 @@ const LoginScreen = () => {
       <TextInput
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor={COLORS[0].desabledText}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleAuth}>
-        <Text style={styles.buttonText}>
-          LogIn
-        </Text>
+        {
+          loading ? (
+            <ActivityIndicator style={{ alignSelf: 'center' }} size={'small'} color={COLORS[0].text} />
+          )
+            : (
+              <Text style={styles.buttonText}>
+                Login
+              </Text>
+            )
+        }
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToSignUp()}>
+      <TouchableOpacity onPress={() => navigateToSignIn()}>
         <Text style={styles.switchText}>
-        Don't have an account? Register.
+          you don't have an account? Register.
         </Text>
       </TouchableOpacity>
     </View>
-    );
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    },
-    title: {
+    backgroundColor: COLORS[0].background,
+  },
+  title: {
+    color: COLORS[0].text,
+    marginBottom: 24,
+    textAlign: 'center',
     fontSize: 24,
     fontWeight: 'bold',
-    },
-    input: {
+  },
+  input: {
     height: 50,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: COLORS[0].inputBackgroud,
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 15,
-    backgroundColor: 'white',
-    },
-    button: {
-    backgroundColor: '#007AFF',
+    backgroundColor: COLORS[0].inputBackgroud,
+  },
+  button: {
+    backgroundColor: COLORS[0].primary,
     height: 50,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 15,
-    },
-    buttonText: {
+  },
+  buttonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    },
-    switchText: {
-    color: '#007AFF',
+  },
+  switchText: {
+    color: COLORS[0].primary,
     textAlign: 'center',
-    },
+    textDecorationLine: 'underline',
+  },
 });
 
 export default LoginScreen;
