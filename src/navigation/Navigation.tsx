@@ -7,6 +7,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);
+    console.log(currentUser);
     // const [currentUser, setCurrentUser] = useState(null);
 
     return (
