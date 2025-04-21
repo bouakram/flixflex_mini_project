@@ -22,7 +22,7 @@ const TopRateedList: React.FC<TopRatedListProps> = ({
     const renderTopShowCard = ({ item }: { item: MediaItem }) => (
         <View style={styles.cardContainer}>
             <MediaCardTopRated
-                title={item.title}
+                title={item.title || item.name}
                 posterPath={item.poster_path}
                 voteAverage={item.vote_average}
                 original_language={item.original_language}

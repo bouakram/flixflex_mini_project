@@ -27,7 +27,7 @@ const List: React.FC<ListProps> = ({
     const renderShowCard = ({ item }: { item: MediaItem }) => (
         <View style={styles.cardContainer}>
           <MediaCard
-            title={item.title}
+            title={item.title || item.name}
             posterPath={item.poster_path}
             voteAverage={item.vote_average}
             onPress={() => handleCardPress('Details', item.id,  type)}
@@ -38,7 +38,7 @@ const List: React.FC<ListProps> = ({
         <FlatList
         data={itemList}
         renderItem={renderShowCard}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         numColumns={2}
         contentContainerStyle={styles.moviesListContainer}
         onEndReached={loadMore}
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         marginHorizontal: 8,
     },
-    moviesListContainer: {paddingBottom: 350},
+    moviesListContainer: {paddingBottom: 300},
     loader: {
         marginVertical: 16,
       },

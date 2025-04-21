@@ -89,7 +89,7 @@ export default function SearchScreen() {
         <FlatList
           data={results}
           renderItem={renderItem}
-          keyExtractor={(item) => `${item.id}-${item.type}`}
+          keyExtractor={(item) => item.id}
           numColumns={2}
           contentContainerStyle={styles.resultsList}
         />
