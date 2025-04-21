@@ -30,7 +30,6 @@ const videoHeight = width * 0.5625;
 const DetailsScreen: React.FC = ({ route }) => {
   const navigation = useNavigation();
   const { id, type } = route.params;
-  console.log(id,type)
   const [isPlaying, setIsPlaying] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<VideoResult | undefined>(undefined);
 

@@ -31,7 +31,6 @@ const LoginScreen = () => {
         navigation.navigate('MainTabs');
       }
     } catch (error: any) {
-      console.log(error);
       Alert.alert('Error', error.message);
     } finally {
       setLoading(false);

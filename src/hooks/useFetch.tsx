@@ -42,17 +42,13 @@ const useFetch = (
         setLoadingMore(true);
         try {
           const nextPage = page + 1;
-          console.log(nextPage);
           const response = await getPopularList(nextPage);
-          console.log(response);
-          console.log(response.data.page === response.data.total_pages);
           if(response.data.page === response.data.total_pages) {
             setLastPage(true);
           }
           setPopular((prevPopular) => [...prevPopular, ...response.data.results]);
           setPage(nextPage);
         } catch (err) {
-          console.log(err);
           setError(error);
         } finally {
           setLoadingMore(false);
