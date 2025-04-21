@@ -11,6 +11,7 @@ const useFetch = (
     const [loadingMore, setLoadingMore] = useState(true);
     const [error, setError] = useState(null);
     const [page, setPage] = useState(1);
+    const [lastPage, setLastPage] = useState(false);
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -35,14 +36,23 @@ const useFetch = (
 
     // handling pagination
       const loadMore = async () => {
-        if (loadingMore) return;
+        if (lastPage) {
+          return;
+        }
         setLoadingMore(true);
         try {
           const nextPage = page + 1;
+          console.log(nextPage);
           const response = await getPopularList(nextPage);
+          console.log(response);
+          console.log(response.data.page === response.data.total_pages);
+          if(response.data.page === response.data.total_pages) {
+            setLastPage(true);
+          }
           setPopular((prevPopular) => [...prevPopular, ...response.data.results]);
           setPage(nextPage);
         } catch (err) {
+          console.log(err);
           setError(error);
         } finally {
           setLoadingMore(false);
