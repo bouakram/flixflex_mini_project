@@ -13,6 +13,19 @@ const RegisterScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const handleAuth = async () => {
+    // simple email validation not effecient just to simulate validation
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+    if (password.length < 6 || password.length > 30) {
+      Alert.alert('Error', 'Password must be between 6 & 30 long');
+      return;
+    }
+    if (!email.includes('@') && (!email.includes('.com') || !email.includes('.net') || !email.includes('.org'))) {
+      Alert.alert('Error', 'Invalid email');
+      return;
+    }
     setLoading(true);
     try {
       await auth().createUserWithEmailAndPassword(email, password);
@@ -24,7 +37,7 @@ const RegisterScreen = () => {
     }
   };
 
-  const navigateToSignUp = () => {
+  const navigateToLogin = () => {
     navigation.navigate('Login');
   };
   return (
@@ -32,6 +45,8 @@ const RegisterScreen = () => {
       <Text style={styles.title}>Register</Text>
       <TextInput
         style={styles.input}
+        inputMode={'email'}
+        textContentType={'emailAddress'}
         placeholder="Email"
         placeholderTextColor={COLORS[0].desabledText}
         value={email}
@@ -41,6 +56,8 @@ const RegisterScreen = () => {
       />
       <TextInput
         style={styles.input}
+        inputMode={'text'}
+        textContentType={'password'}
         placeholder="Password"
         placeholderTextColor={COLORS[0].desabledText}
         value={password}
@@ -59,7 +76,7 @@ const RegisterScreen = () => {
             )
         }
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToSignUp()}>
+      <TouchableOpacity onPress={() => navigateToLogin()}>
         <Text style={styles.switchText}>
           Have an account already? Login.
         </Text>

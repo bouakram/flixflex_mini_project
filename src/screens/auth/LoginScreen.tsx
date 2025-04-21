@@ -11,20 +11,34 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
 
   const handleAuth = async () => {
+    // simple email validation not effecient just to simulate validation
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+    if (password.length < 6 || password.length > 30) {
+      Alert.alert('Error', 'Password must be between 6 & 30 long');
+      return;
+    }
+    if (!email.includes('@') && (!email.includes('.com') || !email.includes('.net') || !email.includes('.org'))) {
+      Alert.alert('Error', 'Invalid email');
+      return;
+    }
     setLoading(true);
     try {
-      const UserCredential = await auth().signInWithEmailAndPassword( email, password);
+      const UserCredential = await auth().signInWithEmailAndPassword(email, password);
       if (UserCredential.user) {
         navigation.navigate('MainTabs');
       }
     } catch (error: any) {
+      console.log(error);
       Alert.alert('Error', error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const navigateToSignIn = () => {
+  const navigateToRegister = () => {
     navigation.navigate('Register');
   };
   return (
@@ -32,6 +46,7 @@ const LoginScreen = () => {
       <Text style={styles.title}>Login</Text>
       <TextInput
         style={styles.input}
+        textContentType={'emailAddress'}
         placeholder="Email"
         placeholderTextColor={COLORS[0].desabledText}
         value={email}
@@ -41,6 +56,7 @@ const LoginScreen = () => {
       />
       <TextInput
         style={styles.input}
+        textContentType={'password'}
         placeholder="Password"
         placeholderTextColor={COLORS[0].desabledText}
         value={password}
@@ -59,7 +75,7 @@ const LoginScreen = () => {
             )
         }
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToSignIn()}>
+      <TouchableOpacity onPress={() => navigateToRegister()}>
         <Text style={styles.switchText}>
           you don't have an account? Register.
         </Text>
