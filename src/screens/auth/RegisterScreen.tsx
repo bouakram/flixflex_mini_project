@@ -29,6 +29,7 @@ const RegisterScreen = () => {
     setLoading(true);
     try {
       await auth().createUserWithEmailAndPassword(email, password);
+      navigation.navigate('Login');
       // setCurrentUser(UserCredential.user);
     } catch (error: any) {
       Alert.alert('Error', error.message);
