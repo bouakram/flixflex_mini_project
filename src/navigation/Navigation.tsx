@@ -1,13 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { UserContext } from '../context/userContext/user.cotext';
 import MainNavigation from './main/MainNavigation';
 import AuthNacigation from './auth/AuthNacigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import auth from '@react-native-firebase/auth';
+import { useAppDispatch, useAppSelector } from '../store/store.types';
+import { setUser } from '../store/user/userSlice';
 
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
+    const dispatch = useAppDispatch();
+    const { currentUser } = useAppSelector((state) => state.user);
+    useEffect(() => {
+        const unsubscribe = auth().onAuthStateChanged((user) => {
+            dispatch(setUser(user));
+        });
 
+        return unsubscribe;
+    }, []);
     return (
         <SafeAreaProvider>
         <NavigationContainer>
