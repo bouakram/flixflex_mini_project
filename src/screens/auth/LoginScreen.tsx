@@ -3,9 +3,12 @@ import React, { useState } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { COLORS } from '../../constants/styles';
 import auth from '@react-native-firebase/auth';
+import { useAppDispatch } from '../../store/store.types';
+import { setUser } from '../../store/user/userSlice';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -28,6 +31,7 @@ const LoginScreen = () => {
     try {
       const UserCredential = await auth().signInWithEmailAndPassword(email, password);
       if (UserCredential.user) {
+        dispatch(setUser(UserCredential.user));
         navigation.navigate('MainTabs');
       }
     } catch (error: any) {
