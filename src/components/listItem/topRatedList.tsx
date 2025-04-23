@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem } from 'react-native';
 import { MediaItem } from '../../services/apiService';
 import { MediaCardTopRated } from '../cards/MediaCardTopRated';
 import { useNavigation } from '@react-navigation/native';
 
 type TopRatedListProps = {
-    topRated: MediaItem[];
+    topRated: MediaItem[] | undefined;
     type: 'movie' | 'tv'
 };
 
@@ -19,7 +19,7 @@ const TopRateedList: React.FC<TopRatedListProps> = ({
         navigation.navigate(to, { id, type }); // not properly typed not an issue since we know the params
     }, [navigation]);
     // top rated card
-    const renderTopShowCard = ({ item }: { item: MediaItem }) => (
+    const renderTopShowCard: ListRenderItem<MediaItem> | null | undefined  = ( {item} ) => (
         <View style={styles.cardContainer}>
             <MediaCardTopRated
                 title={item.title || item.name}
@@ -35,7 +35,7 @@ const TopRateedList: React.FC<TopRatedListProps> = ({
         <FlatList
             data={topRated}
             renderItem={renderTopShowCard}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item, index) => `${item.id}_${index}`}
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.horizontalList}
