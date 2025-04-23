@@ -1,25 +1,23 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { COLORS } from '../../constants/styles';
 import Button from '../../components/Button';
 import auth from '@react-native-firebase/auth';
-import { UserContext } from '../../context/userContext/user.cotext';
-// import { useNavigation } from '@react-navigation/native';
+import { useAppDispatch } from '../../store/store.types';
+import { setUser } from '../../store/user/userSlice';
 
 const SettingsScreen = () => {
-    const {setCurrentUser} = useContext(UserContext);
-    // const navigation = useNavigation();
+    const dispatch = useAppDispatch();
     const [loading, setLoading] = useState(false);
     const handleLogout = async () => {
         setLoading(true);
         auth().signOut().then(()=> {
-            setCurrentUser(null);
-            // navigation.navigate('Unboarding');
+            dispatch(setUser(null));
             setLoading(false);
         });
     };
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS[0].background }}>
+        <View style={styles.container}>
             <Button
             title={loading ? 'loading...' : 'SignOut'}
             onPress={handleLogout}
@@ -29,6 +27,8 @@ const SettingsScreen = () => {
     );
 };
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS[0].background },
+});
 
 export default SettingsScreen;
